@@ -185,7 +185,7 @@
     "items": [
       { "q": "Is the Tour really free?", "a": "Yes. We're sponsor-funded. We don't take money from students. We may ask for an optional voluntary contribution at the end if you found it valuable, but it's never required." },
       { "q": "Why \"Tour\"?", "a": "We tour the AI coding ecosystem — multiple tools, multiple workflows, multiple model providers. Not a bootcamp on one stack." },
-      { "q": "Do I get a certificate?", "a": "Not in the legally-recognized sense. You get: a public PR on the Tour Repo (portfolio piece), a demo day recording (your work, shareable), and a reference letter from the instructor on request." },
+      { "q": "Do I get a certificate?", "a": "Finish the Tour and find out. We don't lead with a certificate \u2014 a PDF isn't why you came. But complete the journey and there's a hidden gem waiting at the end for those who make it through. Along the way you also earn the things that actually carry weight: a public PR on the Tour Repo (your portfolio), a demo day recording (your work, shareable), and a reference letter on request. The gem is the reward; the work is the proof." },
       { "q": "Can I join from outside Myanmar?", "a": "Yes. Instruction is English. Cohort schedule is Myanmar evening / SE Asia evening, which works for ~half the planet." },
       { "q": "How much time do I need per week?", "a": "5-8 hours outside the 4 hours of class. Honest answer: closer to 8 if you're newer." },
       { "q": "What if I can't make a session?", "a": "Up to one-third of sessions can be missed without penalty (recordings provided). Beyond that you risk losing your cohort spot." },
