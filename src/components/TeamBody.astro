@@ -32,8 +32,5 @@ const s = t(locale).team;
   <p class="mt-2 text-gray-700">{s.advisorsBody}</p>
 
   <h2 class="mt-10 text-2xl">{s.helpHeading}</h2>
-  <p class="mt-2 text-gray-700">
-    {s.helpBody.replace(/sponsors page/i, '')}
-    <a href={localizedPath('/sponsors', locale)}>{t(locale).nav.sponsors}</a>.
-  </p>
+  <p class="mt-2 text-gray-700">{s.helpBody}</p>
 </article>
