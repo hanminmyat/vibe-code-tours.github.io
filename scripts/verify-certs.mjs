@@ -16,7 +16,9 @@ const CONCURRENCY = 6;
 
 // Collect every (file, certId, code) across all builder profiles.
 const jobs = [];
-for (const f of fs.readdirSync(dir).filter((x) => x.endsWith(".md") && !x.startsWith("_"))) {
+for (const f of fs
+  .readdirSync(dir)
+  .filter((x) => x.endsWith(".md") && !x.startsWith("_"))) {
   const src = fs.readFileSync(path.join(dir, f), "utf8").replace(/\r\n/g, "\n");
   const m = src.match(/^---\n([\s\S]*?)\n---/);
   if (!m) continue;
@@ -42,10 +44,18 @@ async function check(job) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
-    let res = await fetch(job.url, { method: "GET", redirect: "follow", signal: ctrl.signal });
+    let res = await fetch(job.url, {
+      method: "GET",
+      redirect: "follow",
+      signal: ctrl.signal,
+    });
     return { ...job, status: res.status };
   } catch (e) {
-    return { ...job, status: 0, netError: e.name === "AbortError" ? "timeout" : e.message };
+    return {
+      ...job,
+      status: 0,
+      netError: e.name === "AbortError" ? "timeout" : e.message,
+    };
   } finally {
     clearTimeout(timer);
   }
@@ -63,22 +73,30 @@ async function worker() {
     if (r.status >= 200 && r.status < 400) oks.push(r);
     else if (r.status >= 400) fails.push(r);
     else warns.push(r);
-    process.stdout.write(`\r  checked ${oks.length + fails.length + warns.length}/${jobs.length}`);
+    process.stdout.write(
+      `\r  checked ${oks.length + fails.length + warns.length}/${jobs.length}`,
+    );
   }
 }
 await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 process.stdout.write("\n");
 
 for (const w of warns)
-  console.warn(`  ⚠ ${w.file}: ${w.id} (${w.code}) unreachable — ${w.netError} (not blocking)`);
+  console.warn(
+    `  ⚠ ${w.file}: ${w.id} (${w.code}) unreachable — ${w.netError} (not blocking)`,
+  );
 for (const e of fails)
-  console.error(`  ✖ ${e.file}: ${e.id} (${e.code}) → HTTP ${e.status} at ${e.url}`);
+  console.error(
+    `  ✖ ${e.file}: ${e.id} (${e.code}) → HTTP ${e.status} at ${e.url}`,
+  );
 
 console.log(
   `\nCerts: ${oks.length} verified, ${warns.length} unreachable (warn), ${fails.length} invalid (fail).`,
 );
 if (fails.length) {
-  console.error("\n✖ Cert verification failed — fix or remove the bad cert codes above.\n");
+  console.error(
+    "\n✖ Cert verification failed — fix or remove the bad cert codes above.\n",
+  );
   process.exit(1);
 }
 console.log("✓ All reachable certs verified.");

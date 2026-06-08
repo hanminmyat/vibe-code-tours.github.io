@@ -90,7 +90,10 @@ const links = [
       </span>
     </div>
 
-    <div class="mt-2.5 flex items-center gap-1.5" aria-label="Claude certifications">
+    <div
+      class="mt-2.5 flex items-center gap-1.5"
+      aria-label="Claude certifications"
+    >
       {
         certList.map((c) =>
           c.earned ? (
@@ -103,7 +106,17 @@ const links = [
               title={`${c.label} — verified ✓`}
               aria-label={`${c.label}: verified`}
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="cert-ico"><Fragment set:html={c.icon} /></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="cert-ico"
+              >
+                <Fragment set:html={c.icon} />
+              </svg>
             </a>
           ) : (
             <span
@@ -112,7 +125,17 @@ const links = [
               title={`${c.label} — not yet earned`}
               aria-label={`${c.label}: not earned`}
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="cert-ico"><Fragment set:html={c.icon} /></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="cert-ico"
+              >
+                <Fragment set:html={c.icon} />
+              </svg>
             </span>
           ),
         )
@@ -168,7 +191,9 @@ const links = [
     align-items: center;
     line-height: 1;
     text-decoration: none;
-    transition: transform 0.15s ease, filter 0.15s ease;
+    transition:
+      transform 0.15s ease,
+      filter 0.15s ease;
     cursor: default;
   }
   .cert-ico {

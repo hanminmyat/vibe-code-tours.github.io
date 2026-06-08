@@ -71,7 +71,10 @@ const builders = defineCollection({
     x: optText, // X/Twitter handle or URL
     linkedin: optText, // LinkedIn handle or URL
     website: optUrl, // personal site
-    certs: z.preprocess(normalizeCerts, z.record(z.string(), z.string()).optional()), // Skilljar certs map
+    certs: z.preprocess(
+      normalizeCerts,
+      z.record(z.string(), z.string()).optional(),
+    ), // Skilljar certs map
   }),
 });
 

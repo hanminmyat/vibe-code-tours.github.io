@@ -19,10 +19,26 @@ export const CERT_CATALOG = {
   claude_101: { label: "Claude 101", level: "beginner", order: 1 },
   claude_code_101: { label: "Claude Code 101", level: "beginner", order: 2 },
   mcp_intro: { label: "Intro to MCP", level: "beginner", order: 3 },
-  agent_skills_intro: { label: "Intro to Agent Skills", level: "intermediate", order: 4 },
-  subagents_intro: { label: "Intro to Subagents", level: "intermediate", order: 5 },
-  claude_code_in_action: { label: "Claude Code in Action", level: "intermediate", order: 6 },
-  building_claude_api: { label: "Building with the Claude API", level: "advanced", order: 7 },
+  agent_skills_intro: {
+    label: "Intro to Agent Skills",
+    level: "intermediate",
+    order: 4,
+  },
+  subagents_intro: {
+    label: "Intro to Subagents",
+    level: "intermediate",
+    order: 5,
+  },
+  claude_code_in_action: {
+    label: "Claude Code in Action",
+    level: "intermediate",
+    order: 6,
+  },
+  building_claude_api: {
+    label: "Building with the Claude API",
+    level: "advanced",
+    order: 7,
+  },
 };
 
 // Always-shown core slots (rendered grey when not earned).
@@ -32,7 +48,8 @@ export const CORE_CERTS = ["claude_101", "claude_code_101"];
 // Rendered with stroke=currentColor so the level color tints each icon.
 export const CERT_ICONS = {
   // Claude 101 — sparkle/asterisk (the Claude spark)
-  claude_101: '<path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>',
+  claude_101:
+    '<path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>',
   // Claude Code 101 — code chevrons </>
   claude_code_101: '<path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/>',
   // Intro to MCP — plug / connector
@@ -87,7 +104,6 @@ export function certMeta(id) {
   );
 }
 
-
 // Normalize a raw `certs` frontmatter value into { id: code } with valid codes only.
 export function normalizeCerts(raw) {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) return undefined;
@@ -106,7 +122,9 @@ export function certDisplayList(certs) {
   const ids = [...CORE_CERTS];
   for (const id of Object.keys(earned)) if (!ids.includes(id)) ids.push(id);
   // keep extras in catalog order
-  const extras = ids.slice(CORE_CERTS.length).sort((a, b) => certMeta(a).order - certMeta(b).order);
+  const extras = ids
+    .slice(CORE_CERTS.length)
+    .sort((a, b) => certMeta(a).order - certMeta(b).order);
   const ordered = [...CORE_CERTS, ...extras];
   return ordered.map((id) => {
     const meta = certMeta(id);
