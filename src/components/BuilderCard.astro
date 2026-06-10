@@ -16,6 +16,8 @@ const { name, github, role, skills, repo, x, linkedin, website, certs } =
 
 import { certDisplayList } from "../lib/certs.mjs";
 const certList = certDisplayList(certs);
+const earnedCerts = certList.filter((c) => c.earned);
+const hasCert = earnedCerts.length > 0;
 
 const avatar = `https://github.com/${github}.png?size=160`;
 const roleClass =
@@ -66,14 +68,16 @@ const links = [
     ]}
   >
     <div class="flex items-center gap-3">
-      <img
-        src={avatar}
-        alt={`${name} avatar`}
-        width="48"
-        height="48"
-        loading="lazy"
-        class="h-12 w-12 shrink-0 rounded-full border border-accent-500/30 bg-surface-elevated object-cover"
-      />
+      <div class:list={["avatar-wrap", hasCert && "is-certified"]}>
+        <img
+          src={avatar}
+          alt={`${name} avatar`}
+          width="56"
+          height="56"
+          loading="lazy"
+          class="avatar-img"
+        />
+      </div>
       <div class="min-w-0">
         <p class="truncate font-bold text-white">{name}</p>
         <a
@@ -90,27 +94,26 @@ const links = [
       </span>
     </div>
 
-    <div
-      class="mt-2.5 flex items-center gap-1.5"
-      aria-label="Claude certifications"
-    >
-      {
-        certList.map((c) =>
-          c.earned ? (
+    {
+      hasCert && (
+        <div
+          class="mt-3 flex flex-wrap items-center gap-2"
+          aria-label="Claude certifications"
+        >
+          {earnedCerts.map((c) => (
             <a
               href={c.url}
               target="_blank"
               rel="noopener"
-              class="cert-star"
-              style={`color:${c.color}`}
-              title={`${c.label} — verified ✓`}
-              aria-label={`${c.label}: verified`}
+              class="cert-ico-link"
+              title={`${c.label} — verified`}
+              aria-label={c.label}
             >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="1.8"
+                stroke-width="1.9"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 class="cert-ico"
@@ -118,29 +121,10 @@ const links = [
                 <Fragment set:html={c.icon} />
               </svg>
             </a>
-          ) : (
-            <span
-              class="cert-star cert-off"
-              style={`color:${c.color}`}
-              title={`${c.label} — not yet earned`}
-              aria-label={`${c.label}: not earned`}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="cert-ico"
-              >
-                <Fragment set:html={c.icon} />
-              </svg>
-            </span>
-          ),
-        )
-      }
-    </div>
+          ))}
+        </div>
+      )
+    }
 
     {
       skills && skills.length > 0 && (
@@ -186,30 +170,47 @@ const links = [
   .prose-builder :global(p + p) {
     margin-top: 0.5rem;
   }
-  .cert-star {
+
+  /* ---- Avatar (squircle + subtle certified ring) ---- */
+  .avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30%;
+    border: 1px solid rgb(245 158 11 / 0.3);
+    background: var(--surface-elevated, #18181b);
+  }
+  .avatar-wrap.is-certified .avatar-img {
+    border: 2px solid #f59e0b;
+    box-shadow:
+      0 0 0 2px rgb(245 158 11 / 0.22),
+      0 0 12px rgb(245 158 11 / 0.35);
+  }
+
+  /* ---- Cert icons (icon only, branded amber) ---- */
+  .cert-ico-link {
     display: inline-flex;
     align-items: center;
-    line-height: 1;
+    color: #f59e0b;
     text-decoration: none;
     transition:
       transform 0.15s ease,
       filter 0.15s ease;
-    cursor: default;
   }
-  .cert-ico {
-    width: 1.05rem;
-    height: 1.05rem;
-    display: block;
-  }
-  a.cert-star {
-    cursor: pointer;
-  }
-  a.cert-star:hover {
+  .cert-ico-link:hover {
     transform: scale(1.25);
     filter: drop-shadow(0 0 6px currentColor);
   }
-  .cert-off {
-    opacity: 0.55;
+  .cert-ico {
+    width: 1.15rem;
+    height: 1.15rem;
+    display: block;
   }
 
   /* Keep the grid cell from collapsing when the card pops to absolute. */
