@@ -4,8 +4,8 @@ github: howyyy111
 cohort: 1
 role: builder
 skills: ["JavaScript", "Python", "Java", "Claude Code"]
-x: @howyyy111
-my portfolio website: https://htetoowaiyan.dev
+x: "@howyyy111"
+website: https://htetoowaiyan.dev
 
 ---
 
